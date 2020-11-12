@@ -58,26 +58,98 @@ public final class CreateProduct_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("    <body>\n");
       out.write("\n");
       out.write("        <div class=\"container\">\n");
-      out.write("            \n");
-      out.write("            <div class=\"form-row\">\n");
-      out.write("                <div class=\"col-md-3\">\n");
-      out.write("                    <label>Codigo:</label>\n");
-      out.write("                    <input class=\"form-control\" type=\"text\" placeholder=\"Ingrese el código\" id=\"txtCodigo\" name=\"txtCodigo\" />\n");
+      out.write("            <form method=\"post\" action=\"ProductController\">\n");
+      out.write("\n");
+      out.write("                <h1>Productos</h1>\n");
+      out.write("                <hr>\n");
+      out.write("                <div class=\"form-row\">\n");
+      out.write("                    <div class=\"col-md-3\">\n");
+      out.write("                        <label>Codigo:</label>\n");
+      out.write("                        <input class=\"form-control\" type=\"text\" placeholder=\"Ingrese el código\" id=\"txtCodigo\" name=\"txtCodigo\" />\n");
+      out.write("                    </div>           \n");
+      out.write("                    <div class=\"col-md-3\">\n");
+      out.write("                        <label>Nombre:</label>\n");
+      out.write("                        <input class=\"form-control\" type=\"text\" placeholder=\"Ingrese el nombre\" id=\"txtNombre\" name=\"txtNombre\" />\n");
+      out.write("                    </div>\n");
+      out.write("                    <div class=\"col-md-3\">\n");
+      out.write("                        <label>Cantidad:</label>\n");
+      out.write("                        <input class=\"form-control\" type=\"number\" placeholder=\"Ingrese la cantidad\" id=\"txtCantidad\" name=\"txtCantidad\" />\n");
+      out.write("                    </div>\n");
+      out.write("                    <div class=\"col-md-3\">\n");
+      out.write("                        <label>Precio</label>\n");
+      out.write("                        <input class=\"form-control\" type=\"number\" placeholder=\"Ingrese la cantidad\" id=\"txtPrecio\" name=\"txtPrecio\" />\n");
+      out.write("                    </div>\n");
       out.write("                </div>\n");
-      out.write("                <div class=\"col-md-3\">\n");
-      out.write("                    <label>Nombre:</label>\n");
-      out.write("                    <input type=\"text\" placeholder=\"Ingrese el nombre\" id=\"txtNombre\" name=\"txtNombre\" />\n");
+      out.write("                <div class=\"form-row\">\n");
+      out.write("                    <div class=\"col-md-3\">\n");
+      out.write("                        <br>\n");
+      out.write("                        <label>Genero:</label>\n");
+      out.write("                        <select class=\"form-control\" id=\"ddlGenero\" name=\"ddlGenero\">\n");
+      out.write("                            <option value=\"-1\">--Seleccione--</option>\n");
+      out.write("                            <option value=\"M\">Hombre</option>\n");
+      out.write("                            <option value=\"F\">Mujer</option>\n");
+      out.write("                        </select>\n");
+      out.write("                    </div>  \n");
+      out.write("                    <div class=\"col-md-3\">\n");
+      out.write("                        <br>\n");
+      out.write("                        <label>Categoria:</label>\n");
+      out.write("                        <select class=\"form-control\" id=\"ddlCategoria\" name=\"ddlCategoria\">\n");
+      out.write("                            <option value=\"-1\">--Seleccione--</option>\n");
+      out.write("                            <option value=\"1\">Camisas</option>\n");
+      out.write("                            <option value=\"2\">Correas</option>\n");
+      out.write("                            <option value=\"3\">Zapatos</option>\n");
+      out.write("                            <option value=\"4\">Calzado Dama</option>\n");
+      out.write("                        </select>\n");
+      out.write("                    </div>  \n");
       out.write("                </div>\n");
-      out.write("                <div class=\"col-md-3\">\n");
-      out.write("                    <label>Cantidad:</label>\n");
-      out.write("                    <input type=\"number\" placeholder=\"Ingrese la cantidad\" id=\"txtCantidad\" name=\"txtCantidad\" />\n");
+      out.write("                <div class=\"form-row\">\n");
+      out.write("                    <div class=\"col-md-3\">\n");
+      out.write("                        <br>\n");
+      out.write("                        <input class=\"btn-outline-primary btn\" type=\"submit\" value=\"Guardar\" id=\"btnGuardar\" name=\"btnGuardar\" />\n");
+      out.write("                    </div>\n");
       out.write("                </div>\n");
-      out.write("                <div class=\"col-md-3\">\n");
-      out.write("                    <label>Precio</label>\n");
-      out.write("                    <input type=\"number\" placeholder=\"Ingrese la cantidad\" id=\"txtPrecio\" name=\"txtPrecio\" />\n");
-      out.write("                </div>\n");
-      out.write("            </div>\n");
-      out.write("            \n");
+      out.write("\n");
+      out.write("                ");
+
+                    if (request.getAttribute("preview") != null) {
+                
+      out.write("\n");
+      out.write("                <label class=\"badge badge-success\">Resumen: ");
+      out.print( request.getAttribute("preview"));
+      out.write(" </label><br>\n");
+      out.write("                ");
+
+                    }
+                
+      out.write("\n");
+      out.write("\n");
+      out.write("                ");
+
+                    if (request.getParameter("txtCodigo") != null
+                            && request.getParameter("txtNombre") != null) {
+                
+      out.write("\n");
+      out.write("\n");
+      out.write("                <label class=\"badge badge-dark\">Codigo: ");
+      out.print( request.getParameter("txtCodigo"));
+      out.write(" </label><br>\n");
+      out.write("                <label class=\"badge badge-dark\">Nombre: ");
+      out.print( request.getParameter("txtNombre"));
+      out.write(" </label><br>\n");
+      out.write("                <label class=\"badge badge-dark\">Cantidad: ");
+      out.print( request.getParameter("txtCantidad"));
+      out.write(" </label><br>\n");
+      out.write("                <label class=\"badge badge-dark\">Precio: ");
+      out.print( request.getParameter("txtPrecio"));
+      out.write(" </label><br>\n");
+      out.write("\n");
+      out.write("                ");
+
+                    }
+                
+      out.write("\n");
+      out.write("\n");
+      out.write("            </form>\n");
       out.write("        </div>\n");
       out.write("\n");
       out.write("    </body>\n");

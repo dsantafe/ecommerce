@@ -19,7 +19,7 @@
     <body>
 
         <div class="container">
-            <form method="post" action="#">
+            <form method="post" action="ProductController">
 
                 <h1>Productos</h1>
                 <hr>
@@ -46,20 +46,20 @@
                         <br>
                         <label>Genero:</label>
                         <select class="form-control" id="ddlGenero" name="ddlGenero">
-                            <option>--Seleccione--</option>
-                            <option>Hombre</option>
-                            <option>Mujer</option>
+                            <option value="-1">--Seleccione--</option>
+                            <option value="M">Hombre</option>
+                            <option value="F">Mujer</option>
                         </select>
                     </div>  
                     <div class="col-md-3">
                         <br>
                         <label>Categoria:</label>
                         <select class="form-control" id="ddlCategoria" name="ddlCategoria">
-                            <option>--Seleccione--</option>
-                            <option>Camisas</option>
-                            <option>Correas</option>
-                            <option>Zapatos</option>
-                            <option>Calzado Dama</option>
+                            <option value="-1">--Seleccione--</option>
+                            <option value="1">Camisas</option>
+                            <option value="2">Correas</option>
+                            <option value="3">Zapatos</option>
+                            <option value="4">Calzado Dama</option>
                         </select>
                     </div>  
                 </div>
@@ -69,6 +69,28 @@
                         <input class="btn-outline-primary btn" type="submit" value="Guardar" id="btnGuardar" name="btnGuardar" />
                     </div>
                 </div>
+
+                <%
+                    if (request.getAttribute("preview") != null) {
+                %>
+                <label class="badge badge-success">Resumen: <%= request.getAttribute("preview")%> </label><br>
+                <%
+                    }
+                %>
+
+                <%
+                    if (request.getParameter("txtCodigo") != null
+                            && request.getParameter("txtNombre") != null) {
+                %>
+
+                <label class="badge badge-dark">Codigo: <%= request.getParameter("txtCodigo")%> </label><br>
+                <label class="badge badge-dark">Nombre: <%= request.getParameter("txtNombre")%> </label><br>
+                <label class="badge badge-dark">Cantidad: <%= request.getParameter("txtCantidad")%> </label><br>
+                <label class="badge badge-dark">Precio: <%= request.getParameter("txtPrecio")%> </label><br>
+
+                <%
+                    }
+                %>
 
             </form>
         </div>
