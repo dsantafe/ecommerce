@@ -3,6 +3,9 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import co.edu.utap.ecommerce.domain.Product;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class CreateProduct_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -44,6 +47,10 @@ public final class CreateProduct_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("\n");
       out.write("\n");
       out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
       out.write("    <head>\n");
@@ -60,7 +67,19 @@ public final class CreateProduct_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("        <div class=\"container\">\n");
       out.write("            <form method=\"post\" action=\"ProductController\">\n");
       out.write("\n");
-      out.write("                <h1>Productos</h1>\n");
+      out.write("                ");
+
+                    List<Product> products = new ArrayList();
+
+                    if (session.getAttribute("products") != null) {
+                        products = (List<Product>) session.getAttribute("products");
+                    }
+                
+      out.write("\n");
+      out.write("\n");
+      out.write("                <h1>Productos ( ");
+      out.print( products.size());
+      out.write(" )</h1>\n");
       out.write("                <hr>\n");
       out.write("                <div class=\"form-row\">\n");
       out.write("                    <div class=\"col-md-3\">\n");
@@ -86,8 +105,8 @@ public final class CreateProduct_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("                        <label>Genero:</label>\n");
       out.write("                        <select class=\"form-control\" id=\"ddlGenero\" name=\"ddlGenero\">\n");
       out.write("                            <option value=\"-1\">--Seleccione--</option>\n");
-      out.write("                            <option value=\"M\">Hombre</option>\n");
-      out.write("                            <option value=\"F\">Mujer</option>\n");
+      out.write("                            <option value=\"1\">Hombre</option>\n");
+      out.write("                            <option value=\"2\">Mujer</option>\n");
       out.write("                        </select>\n");
       out.write("                    </div>  \n");
       out.write("                    <div class=\"col-md-3\">\n");
@@ -101,11 +120,17 @@ public final class CreateProduct_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("                            <option value=\"4\">Calzado Dama</option>\n");
       out.write("                        </select>\n");
       out.write("                    </div>  \n");
+      out.write("                    <div class=\"col-md-6\">\n");
+      out.write("                        <br>\n");
+      out.write("                        <label>Imagen:</label>\n");
+      out.write("                        <input type=\"file\" class=\"form-control\" />\n");
+      out.write("                    </div>\n");
       out.write("                </div>\n");
       out.write("                <div class=\"form-row\">\n");
       out.write("                    <div class=\"col-md-3\">\n");
       out.write("                        <br>\n");
       out.write("                        <input class=\"btn-outline-primary btn\" type=\"submit\" value=\"Guardar\" id=\"btnGuardar\" name=\"btnGuardar\" />\n");
+      out.write("                        <a class=\"btn-outline-primary btn\" href=\"ListProduct.jsp\">Ver</a>\n");
       out.write("                    </div>\n");
       out.write("                </div>\n");
       out.write("\n");

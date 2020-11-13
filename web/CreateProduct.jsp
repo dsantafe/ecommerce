@@ -4,6 +4,10 @@
     Author     : EliteBook
 --%>
 
+<%@page import="co.edu.utap.ecommerce.domain.Product"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,7 +25,15 @@
         <div class="container">
             <form method="post" action="ProductController">
 
-                <h1>Productos</h1>
+                <%
+                    List<Product> products = new ArrayList();
+
+                    if (session.getAttribute("products") != null) {
+                        products = (List<Product>) session.getAttribute("products");
+                    }
+                %>
+
+                <h1>Productos ( <%= products.size()%> )</h1>
                 <hr>
                 <div class="form-row">
                     <div class="col-md-3">
@@ -47,8 +59,8 @@
                         <label>Genero:</label>
                         <select class="form-control" id="ddlGenero" name="ddlGenero">
                             <option value="-1">--Seleccione--</option>
-                            <option value="M">Hombre</option>
-                            <option value="F">Mujer</option>
+                            <option value="1">Hombre</option>
+                            <option value="2">Mujer</option>
                         </select>
                     </div>  
                     <div class="col-md-3">
@@ -62,11 +74,17 @@
                             <option value="4">Calzado Dama</option>
                         </select>
                     </div>  
+                    <div class="col-md-6">
+                        <br>
+                        <label>Imagen:</label>
+                        <input type="file" class="form-control" />
+                    </div>
                 </div>
                 <div class="form-row">
                     <div class="col-md-3">
                         <br>
                         <input class="btn-outline-primary btn" type="submit" value="Guardar" id="btnGuardar" name="btnGuardar" />
+                        <a class="btn-outline-primary btn" href="ListProduct.jsp">Ver</a>
                     </div>
                 </div>
 

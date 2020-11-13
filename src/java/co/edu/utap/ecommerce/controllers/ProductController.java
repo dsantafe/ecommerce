@@ -12,6 +12,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import co.edu.utap.ecommerce.domain.Product;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -36,7 +40,31 @@ public class ProductController extends HttpServlet {
         String nombre = request.getParameter("txtNombre");
         int cantidad = Integer.valueOf(request.getParameter("txtCantidad"));
         double precio = Double.valueOf(request.getParameter("txtPrecio"));
-
+        int genero = Integer.valueOf(request.getParameter("ddlGenero"));
+        int categoria = Integer.valueOf(request.getParameter("ddlCategoria"));
+        
+        HttpSession session = request.getSession();
+       
+        Product p = new Product();
+        //Product p = new Product(codigo, nombre, cantidad, precio, genero, categoria);
+        
+        //asignando
+        p.setCodigo(codigo);
+        p.setNombre(nombre);
+        p.setCantidad(cantidad);
+        p.setPrecio(precio);
+        p.setGenero(genero);
+        p.setCategoria(categoria);
+        
+        List<Product> products = new ArrayList<>();   
+        
+        if(session.getAttribute("products") != null){
+            products = (List<Product>)session.getAttribute("products");
+        }
+        
+        products.add(p);
+        
+        session.setAttribute("products", products);
         request.setAttribute("preview", codigo + "/" + nombre + "/" + cantidad + "/" + precio);
 
         request.getRequestDispatcher("CreateProduct.jsp").forward(request, response);
