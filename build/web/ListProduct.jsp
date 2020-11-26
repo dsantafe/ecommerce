@@ -49,7 +49,7 @@
                             <td><%= item.getNombre()%></td>
                             <td><%= item.getCantidad()%></td>
                             <td><%= item.getPrecio()%></td>
-                            <td><img src="https://git-scm.com/images/logos/logomark-orange@2x.png" height="50px" width="50px" /></td>
+                            <td><img src="<%= item.getImagen()%>" height="50px" width="50px" /></td>
                         </tr>
                         <%
                             }

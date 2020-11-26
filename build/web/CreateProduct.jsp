@@ -74,11 +74,11 @@
                             <option value="4">Calzado Dama</option>
                         </select>
                     </div>  
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <br>
                         <label>Imagen:</label>
-                        <input type="file" class="form-control" />
-                    </div>
+                        <input placeholder="Ingrese la url" type="text" class="form-control" id="txtImagen" name="txtImagen" />
+                    </div>  
                 </div>
                 <div class="form-row">
                     <div class="col-md-3">

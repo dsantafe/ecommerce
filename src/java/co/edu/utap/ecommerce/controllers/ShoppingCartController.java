@@ -5,24 +5,24 @@
  */
 package co.edu.utap.ecommerce.controllers;
 
+import co.edu.utap.ecommerce.domain.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import co.edu.utap.ecommerce.domain.Product;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author EliteBook
  */
-@WebServlet(name = "ProductController", urlPatterns = {"/ProductController"})
-public class ProductController extends HttpServlet {
+@WebServlet(name = "ShoppingCartController", urlPatterns = {"/ShoppingCartController"})
+public class ShoppingCartController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,41 +36,51 @@ public class ProductController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String codigo = request.getParameter("txtCodigo");
-        String nombre = request.getParameter("txtNombre");
-        String imagen = request.getParameter("txtImagen");
-        int cantidad = Integer.valueOf(request.getParameter("txtCantidad"));
-        double precio = Double.valueOf(request.getParameter("txtPrecio"));
-        int genero = Integer.valueOf(request.getParameter("ddlGenero"));
-        int categoria = Integer.valueOf(request.getParameter("ddlCategoria"));
-        
+        String id = request.getParameter("id");
+        String action = request.getParameter("action");
+
         HttpSession session = request.getSession();
-       
+        List<Product> products = new ArrayList<>();
+        List<Product> shoppingCart = new ArrayList<>();
         Product p = new Product();
-        //Product p = new Product(codigo, nombre, imagen, cantidad, precio, genero, categoria);
-        
-        //asignando
-        p.setCodigo(codigo);
-        p.setNombre(nombre);
-        p.setCantidad(cantidad);
-        p.setPrecio(precio);
-        p.setGenero(genero);
-        p.setCategoria(categoria);
-        p.setImagen(imagen);
-        
-        List<Product> products = new ArrayList<>();   
-        
-        if(session.getAttribute("products") != null){
-            products = (List<Product>)session.getAttribute("products");
+
+        if (session.getAttribute("products") != null) {
+            products = (List<Product>) session.getAttribute("products");
         }
-        
-        products.add(p);
-        
-        session.setAttribute("products", products);
-        request.setAttribute("preview", codigo + "/" + nombre + "/" + cantidad + "/" + precio);
 
-        request.getRequestDispatcher("CreateProduct.jsp").forward(request, response);
+        if (session.getAttribute("shoppingCart") != null) {
+            shoppingCart = (List<Product>) session.getAttribute("shoppingCart");
+        }
 
+        for (Product item : products) {
+            if (item.getCodigo().equals(id)) {
+                p = item;
+                break;
+            }
+        }
+
+        boolean exist = false;
+
+        for (Product item : shoppingCart) {
+            if (item.getCodigo().equals(id)) {
+                exist = true;                
+                int cantidadActual = p.getCantidad();
+
+                if (action.equals("add")) {
+                    item.setCantidad(cantidadActual + 1);
+                } else if (action.equals("remove")) {                    
+                    item.setCantidad(cantidadActual - 1);
+                }
+            }
+        }
+
+        if (!exist) {
+            p.setCantidad(1);
+            shoppingCart.add(p);
+        }
+
+        session.setAttribute("shoppingCart", shoppingCart);
+        request.getRequestDispatcher("ShoppingCart.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

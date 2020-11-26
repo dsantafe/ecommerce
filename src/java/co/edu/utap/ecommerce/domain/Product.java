@@ -10,43 +10,53 @@ package co.edu.utap.ecommerce.domain;
  * @author EliteBook
  */
 public class Product {
-    
+
     //inicializar
-    public Product(){
-        
+    public Product() {
+
     }
 
-    public Product(String Codigo, String Nombre, int Cantidad, double Precio, int Genero, int Categoria) {
+    public Product(String Codigo, String Nombre, String Imagen, int Cantidad, double Precio, int Genero, int Categoria) {
         this.Codigo = Codigo;
         this.Nombre = Nombre;
+        this.Imagen = Imagen;
         this.Cantidad = Cantidad;
         this.Precio = Precio;
         this.Genero = Genero;
         this.Categoria = Categoria;
     }
-    
+
     //sobrecarga
-    public Product GetProduct(String codigo){
+    public Product GetProduct(String codigo) {
         Product p = new Product();
         return p;
     }
-    
-    public Product GetProduct(String codigo, String nombre){
+
+    public Product GetProduct(String codigo, String nombre) {
         Product p = new Product();
         return p;
     }
-    
-    public Product GetProduct(int categoria){
+
+    public Product GetProduct(int categoria) {
         Product p = new Product();
         return p;
     }
-    
+
     private String Codigo;
     private String Nombre;
+    private String Imagen;
     private int Cantidad;
     private double Precio;
     private int Genero;
     private int Categoria;
+
+    public String getImagen() {
+        return Imagen;
+    }
+
+    public void setImagen(String Imagen) {
+        this.Imagen = Imagen;
+    }
 
     public String getCodigo() {
         return Codigo;
@@ -94,5 +104,5 @@ public class Product {
 
     public void setCategoria(int Categoria) {
         this.Categoria = Categoria;
-    }   
+    }
 }

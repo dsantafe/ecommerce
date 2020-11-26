@@ -120,11 +120,11 @@ public final class CreateProduct_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("                            <option value=\"4\">Calzado Dama</option>\n");
       out.write("                        </select>\n");
       out.write("                    </div>  \n");
-      out.write("                    <div class=\"col-md-6\">\n");
+      out.write("                    <div class=\"col-md-3\">\n");
       out.write("                        <br>\n");
       out.write("                        <label>Imagen:</label>\n");
-      out.write("                        <input type=\"file\" class=\"form-control\" />\n");
-      out.write("                    </div>\n");
+      out.write("                        <input placeholder=\"Ingrese la url\" type=\"text\" class=\"form-control\" id=\"txtImagen\" name=\"txtImagen\" />\n");
+      out.write("                    </div>  \n");
       out.write("                </div>\n");
       out.write("                <div class=\"form-row\">\n");
       out.write("                    <div class=\"col-md-3\">\n");

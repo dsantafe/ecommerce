@@ -1,6 +1,6 @@
 <%-- 
-    Document   : ListProduct
-    Created on : 12-nov-2020, 20:44:12
+    Document   : ShoppingCart
+    Created on : 25-nov-2020, 20:23:50
     Author     : EliteBook
 --%>
 
@@ -21,14 +21,47 @@
     <body>
         <%
             List<Product> products = new ArrayList();
+            List<Product> shoppingCart = new ArrayList();
 
             if (session.getAttribute("products") != null) {
                 products = (List<Product>) session.getAttribute("products");
             }
+
+            if (session.getAttribute("shoppingCart") != null) {
+                shoppingCart = (List<Product>) session.getAttribute("shoppingCart");
+            }
         %>
 
         <div class="container">
-            <h1>Productos ( <%= products.size()%> )</h1>
+            <h1>Productos agregados ( <%= shoppingCart.size()%> )</h1>
+
+            <div class="form-row">
+
+                <%
+                    for (Product item : products) {
+                %>
+
+                <div class="card col-md-3">
+                    <img src="<%= item.getImagen()%>" 
+                         class="card-img-top" alt="..." height="250px" width="25px">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <%= item.getNombre()%>  <br>
+                            $ <%= item.getPrecio()%><br>
+                            <a href="ShoppingCartController?id=<%= item.getCodigo()%>&action=add" class="btn btn-outline-primary">+</a>
+                            <a href="ShoppingCartController?id=<%= item.getCodigo()%>&action=remove" class="btn btn-outline-primary">-</a>
+                        </p>
+                    </div>
+                </div>                    
+
+                <%
+                    }
+                %>
+
+            </div>
+
+            <h1>Resumen</h1>   
+            <hr>
 
             <div class="form-row">
                 <div class="col-md-12">
@@ -38,18 +71,18 @@
                             <td>Nombre</td>
                             <td>Cantidad</td>
                             <td>Precio</td>
-                            <td></td>
+                            <td>Subtotal</td>
                         </tr>
 
                         <%
-                            for (Product item : products) {
+                            for (Product item : shoppingCart) {
                         %>
                         <tr>
                             <td><%= item.getCodigo()%></td>
                             <td><%= item.getNombre()%></td>
                             <td><%= item.getCantidad()%></td>
                             <td><%= item.getPrecio()%></td>
-                            <td><img src="<%= item.getImagen()%>" height="50px" width="50px" /></td>
+                            <td><%= item.getPrecio() * item.getCantidad()%> </td>
                         </tr>
                         <%
                             }
@@ -58,12 +91,6 @@
                     </table>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="col-md-3">
-                    <a class="btn-outline-primary btn" href="CreateProduct.jsp">Volver</a>
-                </div>
-            </div>
-
         </div>
     </body>
 </html>
