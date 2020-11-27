@@ -81,10 +81,11 @@
                     </div>  
                 </div>
                 <div class="form-row">
-                    <div class="col-md-3">
+                    <div class="col-md-12">
                         <br>
-                        <input class="btn-outline-primary btn" type="submit" value="Guardar" id="btnGuardar" name="btnGuardar" />
+                        <input class="btn-outline-success btn" type="submit" value="Guardar" id="btnGuardar" name="btnGuardar" />
                         <a class="btn-outline-primary btn" href="ListProduct.jsp">Ver</a>
+                        <a class="btn-outline-danger btn" href="ShoppingCart.jsp">Carrito de compra</a>
                     </div>
                 </div>
 

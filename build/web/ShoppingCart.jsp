@@ -17,8 +17,24 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+
+        <script src="dist/sweetalert.js"></script>
+        <link rel="stylesheet" href="dist/sweetalert.css">
     </head>
     <body>
+
+        <% if (request.getAttribute("message") != null) {%>
+
+        <input type="text" id="message" value="<%= request.getAttribute("message")%>" hidden="" />
+        <input type="text" id="type" value="<%= request.getAttribute("type")%>" hidden="" />
+        <script>
+            var message = document.getElementById("message").value;
+            var type = document.getElementById("type").value;
+            swal("Notificación", message, type);
+        </script>
+
+        <%}%>        
+
         <%
             List<Product> products = new ArrayList();
             List<Product> shoppingCart = new ArrayList();
@@ -75,7 +91,9 @@
                         </tr>
 
                         <%
+                            double total = 0;
                             for (Product item : shoppingCart) {
+                                total += item.getPrecio() * item.getCantidad();
                         %>
                         <tr>
                             <td><%= item.getCodigo()%></td>
@@ -88,7 +106,13 @@
                             }
                         %>
 
-                    </table>
+                    </table>                    
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-12">
+                    <label class="badge-success">Total de la compra: <%= total%></label><br>
+                    <a href="CreateSale.jsp" class="btn btn-outline-success">Finalizar Compra</a>
                 </div>
             </div>
         </div>

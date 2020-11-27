@@ -59,8 +59,32 @@ public final class ShoppingCart_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("        <script src=\"https://code.jquery.com/jquery-3.5.1.slim.min.js\" integrity=\"sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj\" crossorigin=\"anonymous\"></script>\n");
       out.write("        <script src=\"https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js\" integrity=\"sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN\" crossorigin=\"anonymous\"></script>\n");
       out.write("        <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js\" integrity=\"sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s\" crossorigin=\"anonymous\"></script>\n");
+      out.write("\n");
+      out.write("        <script src=\"dist/sweetalert.js\"></script>\n");
+      out.write("        <link rel=\"stylesheet\" href=\"dist/sweetalert.css\">\n");
       out.write("    </head>\n");
       out.write("    <body>\n");
+      out.write("\n");
+      out.write("        ");
+ if (request.getAttribute("message") != null) { 
+      out.write("\n");
+      out.write("\n");
+      out.write("        <input type=\"text\" id=\"message\" value=\"");
+      out.print( request.getAttribute("message") );
+      out.write("\" hidden=\"\" />\n");
+      out.write("        <input type=\"text\" id=\"type\" value=\"");
+      out.print( request.getAttribute("type") );
+      out.write("\" hidden=\"\" />\n");
+      out.write("        <script>\n");
+      out.write("            var message = document.getElementById(\"message\").value;\n");
+      out.write("            var type = document.getElementById(\"type\").value;\n");
+      out.write("            swal(\"Notificación\", message, type);\n");
+      out.write("        </script>\n");
+      out.write("\n");
+      out.write("        ");
+}
+      out.write("        \n");
+      out.write("\n");
       out.write("        ");
 
             List<Product> products = new ArrayList();
@@ -69,7 +93,7 @@ public final class ShoppingCart_jsp extends org.apache.jasper.runtime.HttpJspBas
             if (session.getAttribute("products") != null) {
                 products = (List<Product>) session.getAttribute("products");
             }
-            
+
             if (session.getAttribute("shoppingCart") != null) {
                 shoppingCart = (List<Product>) session.getAttribute("shoppingCart");
             }
@@ -82,7 +106,7 @@ public final class ShoppingCart_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write(" )</h1>\n");
       out.write("\n");
       out.write("            <div class=\"form-row\">\n");
-      out.write("                \n");
+      out.write("\n");
       out.write("                ");
 
                     for (Product item : products) {
@@ -103,12 +127,15 @@ public final class ShoppingCart_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.print( item.getPrecio());
       out.write("<br>\n");
       out.write("                            <a href=\"ShoppingCartController?id=");
-      out.print( item.getCodigo() );
-      out.write("\" class=\"btn btn-outline-primary\">Agregar</a>\n");
+      out.print( item.getCodigo());
+      out.write("&action=add\" class=\"btn btn-outline-primary\">+</a>\n");
+      out.write("                            <a href=\"ShoppingCartController?id=");
+      out.print( item.getCodigo());
+      out.write("&action=remove\" class=\"btn btn-outline-primary\">-</a>\n");
       out.write("                        </p>\n");
       out.write("                    </div>\n");
       out.write("                </div>                    \n");
-      out.write("                        \n");
+      out.write("\n");
       out.write("                ");
 
                     }
@@ -116,12 +143,57 @@ public final class ShoppingCart_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("\n");
       out.write("\n");
       out.write("            </div>\n");
+      out.write("\n");
+      out.write("            <h1>Resumen</h1>   \n");
+      out.write("            <hr>\n");
+      out.write("\n");
       out.write("            <div class=\"form-row\">\n");
-      out.write("                <div class=\"col-md-3\">\n");
-      out.write("                    <a class=\"btn-outline-primary btn\" href=\"CreateProduct.jsp\">Volver</a>\n");
+      out.write("                <div class=\"col-md-12\">\n");
+      out.write("                    <table class=\"table table-bordered\">\n");
+      out.write("                        <tr>\n");
+      out.write("                            <td>Codigo</td>\n");
+      out.write("                            <td>Nombre</td>\n");
+      out.write("                            <td>Cantidad</td>\n");
+      out.write("                            <td>Precio</td>\n");
+      out.write("                            <td>Subtotal</td>\n");
+      out.write("                        </tr>\n");
+      out.write("\n");
+      out.write("                        ");
+
+                            double total = 0;
+                            for (Product item : shoppingCart) {
+                                total += item.getPrecio() * item.getCantidad();
+                        
+      out.write("\n");
+      out.write("                        <tr>\n");
+      out.write("                            <td>");
+      out.print( item.getCodigo());
+      out.write("</td>\n");
+      out.write("                            <td>");
+      out.print( item.getNombre());
+      out.write("</td>\n");
+      out.write("                            <td>");
+      out.print( item.getCantidad());
+      out.write("</td>\n");
+      out.write("                            <td>");
+      out.print( item.getPrecio());
+      out.write("</td>\n");
+      out.write("                            <td>");
+      out.print( item.getPrecio() * item.getCantidad());
+      out.write(" </td>\n");
+      out.write("                        </tr>\n");
+      out.write("                        ");
+
+                            }
+                        
+      out.write("\n");
+      out.write("\n");
+      out.write("                    </table>\n");
+      out.write("                    <label>Total de la compra: ");
+      out.print( total);
+      out.write("</label>\n");
       out.write("                </div>\n");
       out.write("            </div>\n");
-      out.write("\n");
       out.write("        </div>\n");
       out.write("    </body>\n");
       out.write("</html>");

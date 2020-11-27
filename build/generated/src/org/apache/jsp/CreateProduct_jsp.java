@@ -127,10 +127,11 @@ public final class CreateProduct_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("                    </div>  \n");
       out.write("                </div>\n");
       out.write("                <div class=\"form-row\">\n");
-      out.write("                    <div class=\"col-md-3\">\n");
+      out.write("                    <div class=\"col-md-12\">\n");
       out.write("                        <br>\n");
-      out.write("                        <input class=\"btn-outline-primary btn\" type=\"submit\" value=\"Guardar\" id=\"btnGuardar\" name=\"btnGuardar\" />\n");
+      out.write("                        <input class=\"btn-outline-success btn\" type=\"submit\" value=\"Guardar\" id=\"btnGuardar\" name=\"btnGuardar\" />\n");
       out.write("                        <a class=\"btn-outline-primary btn\" href=\"ListProduct.jsp\">Ver</a>\n");
+      out.write("                        <a class=\"btn-outline-danger btn\" href=\"ShoppingCart.jsp\">Carrito de compra</a>\n");
       out.write("                    </div>\n");
       out.write("                </div>\n");
       out.write("\n");

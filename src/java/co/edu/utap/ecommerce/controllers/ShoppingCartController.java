@@ -36,51 +36,69 @@ public class ShoppingCartController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String id = request.getParameter("id");
-        String action = request.getParameter("action");
+        try {
 
-        HttpSession session = request.getSession();
-        List<Product> products = new ArrayList<>();
-        List<Product> shoppingCart = new ArrayList<>();
-        Product p = new Product();
+            String id = request.getParameter("id");
+            String action = request.getParameter("action");
 
-        if (session.getAttribute("products") != null) {
-            products = (List<Product>) session.getAttribute("products");
-        }
+            HttpSession session = request.getSession();
+            List<Product> products = new ArrayList<>();
+            List<Product> shoppingCart = new ArrayList<>();
+            Product p = new Product();
 
-        if (session.getAttribute("shoppingCart") != null) {
-            shoppingCart = (List<Product>) session.getAttribute("shoppingCart");
-        }
-
-        for (Product item : products) {
-            if (item.getCodigo().equals(id)) {
-                p = item;
-                break;
+            if (session.getAttribute("products") != null) {
+                products = (List<Product>) session.getAttribute("products");
             }
-        }
 
-        boolean exist = false;
+            if (session.getAttribute("shoppingCart") != null) {
+                shoppingCart = (List<Product>) session.getAttribute("shoppingCart");
+            }
 
-        for (Product item : shoppingCart) {
-            if (item.getCodigo().equals(id)) {
-                exist = true;                
-                int cantidadActual = p.getCantidad();
-
-                if (action.equals("add")) {
-                    item.setCantidad(cantidadActual + 1);
-                } else if (action.equals("remove")) {                    
-                    item.setCantidad(cantidadActual - 1);
+            for (Product item : products) {
+                if (item.getCodigo().equals(id)) {
+                    p = item;
+                    break;
                 }
             }
-        }
 
-        if (!exist) {
-            p.setCantidad(1);
-            shoppingCart.add(p);
-        }
+            boolean exist = false;
 
-        session.setAttribute("shoppingCart", shoppingCart);
-        request.getRequestDispatcher("ShoppingCart.jsp").forward(request, response);
+            for (Product item : shoppingCart) {
+                if (item.getCodigo().equals(id)) {
+                    exist = true;
+                    int cantidadActual = p.getCantidad();
+
+                    if (action.equals("add")) {
+                        item.setCantidad(cantidadActual + 1);
+                    } else if (action.equals("remove")) {
+
+                        if (cantidadActual == 1) {
+                            shoppingCart.remove(item);
+                        } else {
+                            item.setCantidad(cantidadActual - 1);
+                        }
+                    }
+
+                    break;
+                }
+            }
+
+            if (!exist) {
+                p.setCantidad(1);
+                shoppingCart.add(p);
+            }
+
+            session.setAttribute("shoppingCart", shoppingCart);
+
+            request.setAttribute("message", "El proceso fue exitoso.");
+            request.setAttribute("type", "success");
+
+            request.getRequestDispatcher("ShoppingCart.jsp").forward(request, response);
+        }catch(Exception ex){
+            request.setAttribute("message", ex.getMessage());
+            request.setAttribute("type", "error");
+            request.getRequestDispatcher("ShoppingCart.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
