@@ -111,7 +111,7 @@
             </div>
             <div class="form-row">
                 <div class="col-md-12">
-                    <label class="badge-success">Total de la compra: <%= total%></label><br>
+                    <label class="badge badge-success">Total de la compra: <%= total%></label><br>
                     <a href="CreateSale.jsp" class="btn btn-outline-success">Finalizar Compra</a>
                 </div>
             </div>
