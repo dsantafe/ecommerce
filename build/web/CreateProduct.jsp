@@ -85,7 +85,7 @@
                         <br>
                         <input class="btn-outline-success btn" type="submit" value="Guardar" id="btnGuardar" name="btnGuardar" />
                         <a class="btn-outline-primary btn" href="ListProduct.jsp">Ver</a>
-                        <a class="btn-outline-danger btn" href="ShoppingCart.jsp">Carrito de compra</a>
+                        <a class="btn-outline-danger btn" href="ShoppingCartController?btnIndex=true">Carrito de compra</a>
                     </div>
                 </div>
 

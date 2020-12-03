@@ -39,8 +39,8 @@
             List<Product> products = new ArrayList();
             List<Product> shoppingCart = new ArrayList();
 
-            if (session.getAttribute("products") != null) {
-                products = (List<Product>) session.getAttribute("products");
+            if (request.getAttribute("products") != null) {
+                products = (List<Product>) request.getAttribute("products");
             }
 
             if (session.getAttribute("shoppingCart") != null) {
